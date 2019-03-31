@@ -7,8 +7,13 @@ namespace Sentry.EntityFramework
     public class SentryCommandInterceptor : IDbCommandInterceptor
     {
         private readonly IQueryLogger _queryLogger;
+        private readonly IDbCommandLogFormatter _dbCommandLogFormatter;
 
-        public SentryCommandInterceptor(IQueryLogger queryLogger) => _queryLogger = queryLogger;
+        public SentryCommandInterceptor(IQueryLogger queryLogger, IDbCommandLogFormatter dbCommandLogFormatter)
+        {
+            _queryLogger = queryLogger;
+            _dbCommandLogFormatter = dbCommandLogFormatter;
+        }
 
         public void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
             => Log(command, interceptionContext);
@@ -29,11 +34,11 @@ namespace Sentry.EntityFramework
         {
             if (interceptionContext.Exception != null)
             {
-                _queryLogger.Log(command.CommandText, BreadcrumbLevel.Error);
+                _queryLogger.Log(_dbCommandLogFormatter.GetLogMessage(command), BreadcrumbLevel.Error);
             }
             else
             {
-                _queryLogger.Log(command.CommandText);
+                _queryLogger.Log(_dbCommandLogFormatter.GetLogMessage(command));
             }
         }
     }
