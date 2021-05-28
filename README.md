@@ -1,12 +1,8 @@
-﻿<p align="center">
-  <a href="https://sentry.io" target="_blank" align="center">
-    <img src="https://sentry-brand.storage.googleapis.com/sentry-logo-black.png" width="280">
-  </a>
-  <br />
-</p>
-
-Entity Framework 6 Integration for Sentry
+The code was moved into the Sentry SDK for .NET
 ===========
+
+
+
 [![AppVeyor](https://ci.appveyor.com/api/projects/status/43u1aqlj5tj33x46/branch/master?svg=true)](https://ci.appveyor.com/project/sentry/sentry-dotnet-ef/branch/master)
 
 
